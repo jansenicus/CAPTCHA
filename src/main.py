@@ -15,10 +15,11 @@ from captcha.image import ImageCaptcha
 from fastapi.responses import StreamingResponse
 from fastapi_utils.tasks import repeat_every
 from ut import envOverride
+from pathlib import Path
 
 logger = logging.getLogger("uvicorn.error")
 
-ImageGenerator = ImageCaptcha(width=500, height=200)
+ImageGenerator = ImageCaptcha(width=500, height=200, fonts=[Path('./leadcoat.ttf').resolve().as_posix(), Path('./FLATS.ttf').resolve().as_posix()])
 
 RETRY = 10
 
@@ -120,17 +121,9 @@ async def appDefinition(db_settings, forceDBInit=False):
         It store in the support DB the md5 hash of the given captcha, togheter with its secret.
         '''
         cnt = 0
-        while True:
-            try:
-                content = urllib.request.urlopen("https://random-word-api.herokuapp.com/word?number=2").read()
-                break
-            except urllib.error.HTTPError:
-                cnt += 1
-                if cnt > RETRY:
-                    response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
-                    return False
-                await asyncio.sleep(0.2)
-        secret = " ".join(json.loads(content.decode('utf-8')))
+        wordlist = ['semarang', 'lumpia', 'artemis', 'hades', 'olympus', 'poseidon', 'zeus', 'hercules', 'jatingaleh']
+        import random
+        secret = random.choice(wordlist)
         img = ImageGenerator.generate(secret)
         fingerprint = hashlib.md5(img.read()).hexdigest()
         img.seek(0)
