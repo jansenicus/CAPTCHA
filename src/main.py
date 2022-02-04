@@ -18,11 +18,7 @@ from ut import envOverride
 
 logger = logging.getLogger("uvicorn.error")
 
-<<<<<<< Updated upstream
-ImageGenerator = ImageCaptcha(width=500, height=200, fonts=['/opt/captcha/src/leadcoat.ttf'])
-=======
 ImageGenerator = ImageCaptcha(width=125, height=50, fonts=['/opt/captcha/src/leadcoat.ttf'])
->>>>>>> Stashed changes
 
 RETRY = 10
 
