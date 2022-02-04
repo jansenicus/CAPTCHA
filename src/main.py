@@ -19,7 +19,7 @@ from pathlib import Path
 
 logger = logging.getLogger("uvicorn.error")
 
-ImageGenerator = ImageCaptcha(width=500, height=200, fonts=['/opt/pedrozena/captcha/src/leadcoat.ttf'])
+ImageGenerator = ImageCaptcha(width=500, height=200, fonts=['/opt/captcha/src/leadcoat.ttf'])
 
 RETRY = 10
 
