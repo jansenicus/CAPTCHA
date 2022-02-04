@@ -15,11 +15,14 @@ from captcha.image import ImageCaptcha
 from fastapi.responses import StreamingResponse
 from fastapi_utils.tasks import repeat_every
 from ut import envOverride
-from pathlib import Path
 
 logger = logging.getLogger("uvicorn.error")
 
+<<<<<<< Updated upstream
 ImageGenerator = ImageCaptcha(width=500, height=200, fonts=['/opt/captcha/src/leadcoat.ttf'])
+=======
+ImageGenerator = ImageCaptcha(width=125, height=50, fonts=['/opt/captcha/src/leadcoat.ttf'])
+>>>>>>> Stashed changes
 
 RETRY = 10
 
@@ -121,7 +124,15 @@ async def appDefinition(db_settings, forceDBInit=False):
         It store in the support DB the md5 hash of the given captcha, togheter with its secret.
         '''
         cnt = 0
-        wordlist = ['semarang', 'lumpia', 'artemis', 'hades', 'olympus', 'poseidon', 'zeus', 'hercules', 'jatingaleh']
+        wordlist = ['semarang',
+                    'jupyter',
+                    'artemis',
+                    'poseidon',
+                    'demeter',
+                    'aphrodite',
+                    'lumpia',
+                    'wingko',
+                    'olympus']
         import random
         secret = random.choice(wordlist)
         img = ImageGenerator.generate(secret)
